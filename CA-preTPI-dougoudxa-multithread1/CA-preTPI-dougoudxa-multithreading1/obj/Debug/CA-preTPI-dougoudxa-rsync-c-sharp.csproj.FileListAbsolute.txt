@@ -1,0 +1,6 @@
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe.config
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.csprojResolveAssemblyReference.cache
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb

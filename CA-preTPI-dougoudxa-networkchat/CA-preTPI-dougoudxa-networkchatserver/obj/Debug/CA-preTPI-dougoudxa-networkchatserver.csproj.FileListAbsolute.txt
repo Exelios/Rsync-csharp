@@ -1,0 +1,11 @@
+F:\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.exe.config
+F:\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\obj\Debug\CA-preTPI-dougoudxa-networkchatserver.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\obj\Debug\CA-preTPI-dougoudxa-networkchatserver.pdb
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.exe.config
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\obj\Debug\CA-preTPI-dougoudxa-networkchatserver.exe
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\obj\Debug\CA-preTPI-dougoudxa-networkchatserver.pdb
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.exe
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\bin\Debug\CA-preTPI-dougoudxa-networkchatserver.pdb
+F:\Projet_rsync_c#\Tutoriels\CA-preTPI-dougoudxa-networkchat\CA-preTPI-dougoudxa-networkchatserver\obj\Debug\CA-preTPI-dougoudxa-networkchatserver.csprojResolveAssemblyReference.cache
