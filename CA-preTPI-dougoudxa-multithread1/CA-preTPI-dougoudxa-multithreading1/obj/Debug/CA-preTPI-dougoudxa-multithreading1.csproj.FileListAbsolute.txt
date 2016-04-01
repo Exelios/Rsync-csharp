@@ -1,0 +1,14 @@
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe.config
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-rsync-c-sharp\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-multithreading1\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe.config
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-multithreading1\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-rsync-c-sharp\CA-preTPI-dougoudxa-multithreading1\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe.config
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\obj\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.exe
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\bin\Debug\CA-preTPI-dougoudxa-rsync-c-sharp.pdb
+F:\Tutoriels\CA-preTPI-dougoudxa-multithread1\CA-preTPI-dougoudxa-multithreading1\obj\Debug\CA-preTPI-dougoudxa-multithreading1.csprojResolveAssemblyReference.cache
