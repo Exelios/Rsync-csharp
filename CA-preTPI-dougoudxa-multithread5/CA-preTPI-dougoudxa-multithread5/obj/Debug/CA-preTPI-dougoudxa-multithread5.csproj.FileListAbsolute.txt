@@ -1,5 +1,0 @@
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread5\CA-preTPI-dougoudxa-multithread5\bin\Debug\CA-preTPI-dougoudxa-multithread5.exe.config
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread5\CA-preTPI-dougoudxa-multithread5\bin\Debug\CA-preTPI-dougoudxa-multithread5.exe
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread5\CA-preTPI-dougoudxa-multithread5\bin\Debug\CA-preTPI-dougoudxa-multithread5.pdb
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread5\CA-preTPI-dougoudxa-multithread5\obj\Debug\CA-preTPI-dougoudxa-multithread5.exe
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread5\CA-preTPI-dougoudxa-multithread5\obj\Debug\CA-preTPI-dougoudxa-multithread5.pdb

@@ -1,6 +1,0 @@
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\bin\Debug\CA-preTPI-dougoudxa-multithread4.exe.config
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\bin\Debug\CA-preTPI-dougoudxa-multithread4.exe
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\bin\Debug\CA-preTPI-dougoudxa-multithread4.pdb
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\obj\Debug\CA-preTPI-dougoudxa-multithread4.csprojResolveAssemblyReference.cache
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\obj\Debug\CA-preTPI-dougoudxa-multithread4.exe
-F:\Tutoriels\CA-preTPI-dougoudxa-multithread4\CA-preTPI-dougoudxa-multithread4\obj\Debug\CA-preTPI-dougoudxa-multithread4.pdb
