@@ -4,6 +4,8 @@
 /// 
 /// Modified by: Xavier Dougoud
 /// 
+/// Originally was not a seperate class.
+/// 
 /// Based on the source code from http://codes-sources.commentcamarche.net/source/53449-transfert-de-fichier
 
 using System;

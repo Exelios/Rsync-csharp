@@ -133,7 +133,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// Opens the Rsync# directorx, the home folder.
+        /// Opens the Rsync# directory, the home folder.
         /// </summary>
         public static void open()
         {
