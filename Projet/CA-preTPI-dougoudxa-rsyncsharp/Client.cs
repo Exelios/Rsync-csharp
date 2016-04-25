@@ -108,7 +108,9 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Upload target</param>
         public static void upload(String path)
         {
-
+            send(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
+            //For debugging purposes, method not yet defined
+            Console.WriteLine("Upload function not yet available.");
         }
         /*-------------------------------------------------------------------------------*/
 
@@ -118,7 +120,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Directory needed to be updated</param>
         public static void update(String path)
         {
-
+            //For debugging purposes, method not yet defined
+            Console.WriteLine("Update function not yet available.");
         }
         /*--------------------------------------------------------------------------------*/
 
@@ -149,12 +152,26 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// Opens the specified directory. If no path was specified opens the Rsync# home directory.
+        /// Opens the specified file or directory. If no path was specified opens the Rsync# home directory.
         /// </summary>
         /// <param name="path">Directory needed to be opened</param>
         public static void open(String path)
         {
-            Process.Start(Server.DEFAULT_DIRECTORY_PATH + path);
+            if (Directory.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+            {
+                Process.Start(Server.DEFAULT_DIRECTORY_PATH + path);
+            }
+            else
+            {
+                if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+                {
+                    Process.Start(Server.DEFAULT_DIRECTORY_PATH + path);
+                }
+                else
+                {
+                    Console.WriteLine("\nNo such file or directory");
+                }
+            }
         }
         /*-----------------------------------------------------------------------------*/
 

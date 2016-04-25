@@ -13,16 +13,20 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 {
     class Program
     {
+        /// <summary>
+        /// Attribute insuring correct application closing sequence.
+        /// </summary>
         private static bool EXIT_STATUS = false;
 
         /// <summary>
-        /// 
+        /// Method used by the quit method in the Client class.
         /// </summary>
-        /// <param name="newStatus"></param>
+        /// <param name="newStatus">Set as true</param>
         public static void setExitStatus(bool newStatus)
         {
             EXIT_STATUS = newStatus;
         }
+        /*--------------------------------------------------------*/
 
         /// <summary>
         /// Parses the input from the user into a command string and a path string
@@ -50,6 +54,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
             return Console.ReadLine();
         }
+        /*--------------------------------------------------------------------------------------*/
         
 
         /// <summary>
@@ -58,9 +63,10 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            Server.startTCPlistener();
+
             StatusText.showWelcomeMessage();
 
-            //Thread listen = new Thread(NetworkConfig.StartListening());
 
             while (EXIT_STATUS == false)
             {
@@ -68,10 +74,13 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
                 //Test debug
                 //Console.WriteLine("For debugging purposes\nThe command parsed: " + StatusText.getCommandInput() + "\nThe path parsed: " + StatusText.getPathInput());
-                Client.showIPs();
+                //Client.showIPs();
 
                 Client.executeRequest();
             }
+
+            //Closing instructions
         }
+        //End of Main()
     }
 }

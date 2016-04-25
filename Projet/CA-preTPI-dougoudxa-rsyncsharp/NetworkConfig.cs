@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
@@ -45,8 +45,31 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static Int64 bufferSize = 32768;
 
+        //public static UdpClient udpServer = new UdpClient(4000);
+
+        public static Thread listen;
 
         /////////////////////////////////Class methods///////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Start the UDP part of the server for braodcasting and catching IP addresses
+        /// </summary>
+        public static void startUDPServer()
+        {
+            listen = new Thread(new ThreadStart(StartListening));
+
+            listen.Start();
+        }
+        /*------------------------------------------------------------------------*/
+
+        /// <summary>
+        /// Stops the UDP server when apllication closes.
+        /// </summary>
+        public static void stopUDPServer()
+        {
+            listen.Join();
+        }
+        /*----------------------------------------------------------------------*/
 
         /// <summary>
         /// Broadcasts the ip address of the current machine to all other machines in same subnet
@@ -74,7 +97,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Method used by the listening thread
         /// </summary>
-        public void StartListening()
+        public static void StartListening()
         {
             udpClient.BeginReceive(Receive, new object());
         }
@@ -84,7 +107,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// Method receiving incoming packets from any IP on the network
         /// </summary>
         /// <param name="result">Represents the status of an asynchronous operation</param>
-        public void Receive(IAsyncResult result)
+        public static void Receive(IAsyncResult result)
         {
             IPEndPoint incomingIP = new IPEndPoint(IPAddress.Any, 4000);
             byte[] incomingData = udpClient.EndReceive(result, ref incomingIP);
@@ -97,7 +120,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Method collecting and storing all IP addresses sent by the program from other machines
         /// </summary>
-        public void getNetworkAddresses(IPAddress ip)
+        public static void getNetworkAddresses(IPAddress ip)
         {
             int arrayIndex = 0;
 

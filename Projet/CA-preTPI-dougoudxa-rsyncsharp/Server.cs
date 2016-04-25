@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
@@ -28,6 +28,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static string DEFAULT_DIRECTORY_PATH = "C:\\Users\\" + Environment.UserName + "\\Rsync#\\";
 
+        private static Thread tcpListener;
 
         ////////////////////////////////////////Class Methods///////////////////////////////////////////////////////////////////
 
@@ -85,6 +86,14 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             //Close ALL objects
             fileStreamServer.Close();
             networkStreamServer.Close();
+        }
+
+
+        public static void startTCPlistener()
+        {
+            tcpListener = new Thread(receive);
+
+            tcpListener.Start();
         }
     }
 }
