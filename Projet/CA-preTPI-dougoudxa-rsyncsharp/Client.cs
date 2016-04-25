@@ -176,7 +176,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
             Console.Write("Here are the basics: \n");
             Console.Write("This is the standard request syntaxe : Rsync#> \"REQUEST\" \"PATH\"\n");
-            Console.Write("\nList of the requests :\n\nUpload\nUpdate\nCreate\nDelete\nOpen\nExit Quit\nHelp ?\n\n");
+            Console.Write("\nList of the requests :\n\n");
 
             Console.Write("Upload \"path\" > uploads the file specified by \"path\" to everyone on the network.\n");
             Console.Write("Update \"path\" > updates the directory specified by \"path\" for everyone on the network.\n");
@@ -185,7 +185,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             Console.Write("Open \"path\"   > opens the specified directory. If no path is specified then the Rsync# home folder is opened.\n");
             Console.Write("Exit and Quit > close the program.\n");
             Console.Write("Help and ?    > show the help screen.\n\n");
-            Console.Write("When entering a file path, you must specifie the file extension : .txt .jpg .pdf etc.");
+            Console.Write("When entering a file path, you must specify the file extension : .txt .jpg .pdf etc.\n");
         }
         /*------------------------------------------------------------------------------*/
         
