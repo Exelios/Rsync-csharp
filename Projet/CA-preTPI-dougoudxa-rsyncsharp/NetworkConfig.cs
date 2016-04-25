@@ -74,7 +74,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Method used by the listening thread
         /// </summary>
-        private void StartListening()
+        public void StartListening()
         {
             udpClient.BeginReceive(Receive, new object());
         }
@@ -84,11 +84,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// Method receiving incoming packets from any IP on the network
         /// </summary>
         /// <param name="result">Represents the status of an asynchronous operation</param>
-        private void Receive(IAsyncResult result)
+        public void Receive(IAsyncResult result)
         {
             IPEndPoint incomingIP = new IPEndPoint(IPAddress.Any, 4000);
             byte[] incomingData = udpClient.EndReceive(result, ref incomingIP);
             tempIPAdress = IPAddress.Parse(Encoding.ASCII.GetString(incomingData));
+            getNetworkAddresses(tempIPAdress);
             StartListening();
         }
         /*-----------------------------------------------------*/
@@ -96,9 +97,19 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Method collecting and storing all IP addresses sent by the program from other machines
         /// </summary>
-        public void getNetworkAddresses()
+        public void getNetworkAddresses(IPAddress ip)
         {
+            int arrayIndex = 0;
 
+            while(arrayIndex < networkAddressesArray.Length)
+            {
+                ++arrayIndex;
+                if(networkAddressesArray[arrayIndex] == null)
+                {
+                    networkAddressesArray[arrayIndex] = ip;
+                    break;
+                }
+            }
         }
         /*--------------------------------------------------------------------------------------*/
     }

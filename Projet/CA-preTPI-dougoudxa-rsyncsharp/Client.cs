@@ -207,6 +207,22 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
+        /// For debugging purposes only. Shows all the ip adresses the program received.
+        /// </summary>
+        public static void showIPs()
+        {
+            int arrayIndex = -1;
+
+            do
+            {
+                ++arrayIndex;
+
+                Console.WriteLine(NetworkConfig.networkAddressesArray[arrayIndex]);
+            } while (NetworkConfig.networkAddressesArray[arrayIndex] != null);
+        }
+        /*---------------------------------------------------------------------------*/
+
+        /// <summary>
         /// Executes the command typed in by user.
         /// </summary>
         public static void executeRequest()
@@ -256,11 +272,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 case 8:
                     create(StatusText.getPathInput());
                     break;
-
-                default:
-                    showHelpScreen();
-                    break;
-
             }
             //End of switch
 

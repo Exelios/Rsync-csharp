@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
@@ -60,12 +60,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             StatusText.showWelcomeMessage();
 
+            //Thread listen = new Thread(NetworkConfig.StartListening());
+
             while (EXIT_STATUS == false)
             {
                 parseCommand(typeInRequest());
 
                 //Test debug
                 //Console.WriteLine("For debugging purposes\nThe command parsed: " + StatusText.getCommandInput() + "\nThe path parsed: " + StatusText.getPathInput());
+                Client.showIPs();
 
                 Client.executeRequest();
             }
