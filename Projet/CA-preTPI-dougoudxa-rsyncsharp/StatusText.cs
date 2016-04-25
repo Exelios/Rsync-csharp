@@ -3,15 +3,11 @@
 /// Date:   18.04.2016
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
     /// <summary>
-    /// 
+    /// Class containing most of the constant text used in the program.
     /// </summary>
     class StatusText
     {
@@ -36,7 +32,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="consoleCommandInput">New value parsed form parseCommand method in Program class.</param>
         public static void setCommandInput(String consoleCommandInput)
         {
-            commandInput = consoleCommandInput;
+            commandInput = consoleCommandInput.ToLower();
         }
 
         /// <summary>
@@ -48,7 +44,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// Getter for the pathInput attribute.
         /// </summary>
         /// <returns>pathInput</returns>
-        public static String getCommandPath()
+        public static String getPathInput()
         {
             return pathInput;
         }
@@ -59,13 +55,22 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="consolePathInput">New value parsed from pareCommand method in Program class.</param>
         public static void setPathInput(String consolePathInput)
         {
-            pathInput = consolePathInput;
+            pathInput = consolePathInput.ToLower();
         }
 
         /// <summary>
         /// Input values for the command to be executed.
         /// </summary>
-        private static String[] commandInputValueArray = {"upload", "upgrade", "delete", "quit"};
+        private static String[] commandInputValueArray = {"upload", "update", "delete", "open", "quit", "exit", "help", "?", "create"};
+
+        /// <summary>
+        /// Getter to get the length of the commandInputVlueArray
+        /// </summary>
+        /// <returns>Integer</returns>
+        public static int getcommandInputValueArrayLength()
+        {
+            return commandInputValueArray.Length;
+        }
 
         /// <summary>
         /// Getter accessing the commandInputValueArray.
@@ -76,7 +81,28 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return commandInputValueArray[arrayIndex];
         }
+        
+        /// <summary>
+        /// Shows the welcome message and welcome text when the program starts.
+        /// </summary>
+        public static void showWelcomeMessage()
+        {
+            for(int i = 0; i < 3; ++i)
+            {
+                if(i == 0 || i == 2)
+                {
+                    for(int j = 0; j < 45; ++j)
+                    {
+                        Console.Write("*");
+                    }
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("*             Welcome to RSYNC#             *");
+                }
+            }
+        }
 
-        /*---------------------------------------------------------------------------------*/
     }
 }

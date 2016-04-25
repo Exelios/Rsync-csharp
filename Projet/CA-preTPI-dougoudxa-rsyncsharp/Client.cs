@@ -103,19 +103,19 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// 
+        /// Uploads the file/directory to every user on the network.
         /// </summary>
-        /// <param name="fileName"></param>
-        public static void upload(String fileName)
+        /// <param name="path">Upload target</param>
+        public static void upload(String path)
         {
 
         }
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// 
+        /// Updates the current contents of the specified directory for users connected on the network.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">Directory needed to be updated</param>
         public static void update(String path)
         {
 
@@ -123,30 +123,142 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*--------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// 
+        /// Deletes the file/directory specified by the parameter.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">File/directory needed to be deleted</param>
         public static void delete(String path)
         {
-
+            if (Directory.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+            {
+                Directory.Delete(Server.DEFAULT_DIRECTORY_PATH + path, true);
+                Console.WriteLine("\nDone");
+            }
+            else
+            {
+                if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+                {
+                    File.Delete(Server.DEFAULT_DIRECTORY_PATH + path);
+                    Console.WriteLine("\nDone");
+                }
+                else
+                {
+                    Console.WriteLine("\nNo such file or directory");
+                }
+            }
         }
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// Opens the Rsync# directory, the home folder.
+        /// Opens the specified directory. If no path was specified opens the Rsync# home directory.
         /// </summary>
-        public static void open()
+        /// <param name="path">Directory needed to be opened</param>
+        public static void open(String path)
         {
-            Process.Start(Server.DEFAULT_DIRECTORY_PATH);
+            Process.Start(Server.DEFAULT_DIRECTORY_PATH + path);
         }
         /*-----------------------------------------------------------------------------*/
 
         /// <summary>
-        /// 
+        /// Exits the program.
         /// </summary>
         public static void quit()
         {
+            Program.setExitStatus(true);
+        }
+        /*-------------------------------------------------------------------------------*/
 
+        /// <summary>
+        /// Shows the help screen of the application.
+        /// </summary>
+        public static void showHelpScreen()
+        {
+            Console.Write("\nNeed some help ?\n");
+
+            Console.Write("Here are the basics: \n");
+            Console.Write("This is the standard request syntaxe : Rsync#> \"REQUEST\" \"PATH\"\n");
+            Console.Write("\nList of the requests :\n\nUpload\nUpdate\nCreate\nDelete\nOpen\nExit Quit\nHelp ?\n\n");
+
+        }
+        /*------------------------------------------------------------------------------*/
+        
+        /// <summary>
+        /// Creates the specified directory if it doesn't already exist.
+        /// </summary>
+        /// <param name="path">Target path</param>
+        public static void create(String path)
+        {
+            if (!Directory.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+            {
+                Directory.CreateDirectory(Server.DEFAULT_DIRECTORY_PATH + path);
+            }
+            else
+            {
+                Console.WriteLine("\nDirectory already exists.\n");
+            }
+        }
+        /*-------------------------------------------------------------------------------*/
+
+        /// <summary>
+        /// Executes the command typed in by user.
+        /// </summary>
+        public static void executeRequest()
+        {
+            int commandIndex = 0;
+
+            //Compares the command input to the list of possible commands.
+            for(int i = 0; i < StatusText.getcommandInputValueArrayLength(); ++i)
+            {
+                if(StatusText.getCommandValue(i) == StatusText.getCommandInput())
+                {
+                    commandIndex = i;
+                    break;
+                }
+            }
+            //End of for
+
+            //Calls the correct method depending on the command input
+            switch (commandIndex)
+            {
+                case 0:
+                    upload(StatusText.getPathInput());
+                    break;
+
+                case 1:
+                    update(StatusText.getPathInput());
+                    break;
+
+                case 2:
+                    delete(StatusText.getPathInput());
+                    break;
+
+                case 3:
+                    open(StatusText.getPathInput());
+                    break;
+
+                case 4:
+                case 5:
+                    quit();
+                    break;
+
+                case 6:
+                case 7:
+                    showHelpScreen();
+                    break;
+
+                case 8:
+                    create(StatusText.getPathInput());
+                    break;
+
+                default:
+                    showHelpScreen();
+                    break;
+
+            }
+            //End of switch
+
+            //Erases the command just executed to prevent any misbehaviours for future requests.
+            StatusText.setCommandInput("");
+            StatusText.setPathInput("");
         }
         /*-------------------------------------------------------------------------------*/
     }
