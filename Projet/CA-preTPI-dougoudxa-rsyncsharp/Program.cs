@@ -77,6 +77,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 //Client.showIPs();
 
                 Client.executeRequest();
+
+                Server.restartTCPlistener();
             }
 
             //Closing instructions

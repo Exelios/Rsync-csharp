@@ -66,7 +66,10 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             String fileHash = fileTransferServer.hash;
 
             //ok, receive/write the file
-            FileStream fileStreamServer = new FileStream(fullFilePath, FileMode.Create);
+            //By default if the directory in which should be contained doesn't exist then it will go into the Home Folder.
+            String[] directoryList = fullFilePath.Split('\\');
+
+            FileStream fileStreamServer = new FileStream(DEFAULT_DIRECTORY_PATH + directoryList[directoryList.Length - 1], FileMode.Create);
             Int64 bytesReceived = 0;
             
             while (bytesReceived < fileSize)
@@ -92,6 +95,13 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         public static void startTCPlistener()
         {
             tcpListener = new Thread(receive);
+
+            tcpListener.Start();
+        }
+
+        public static void restartTCPlistener()
+        {
+            tcpListener.Abort();
 
             tcpListener.Start();
         }
