@@ -184,8 +184,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             Console.Write("Delete \"path\" > deletes the specified file or directory on local machine. Directory is recursively deleted.\n");
             Console.Write("Open \"path\"   > opens the specified directory. If no path is specified then the Rsync# home folder is opened.\n");
             Console.Write("Exit and Quit > close the program.\n");
-            Console.Write("Help and ?    > show the help screen.\n");
-
+            Console.Write("Help and ?    > show the help screen.\n\n");
+            Console.Write("When entering a file path, you must specifie the file extension : .txt .jpg .pdf etc.");
         }
         /*------------------------------------------------------------------------------*/
         
