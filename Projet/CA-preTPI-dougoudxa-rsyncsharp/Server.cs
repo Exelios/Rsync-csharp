@@ -16,6 +16,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
     /// </summary>
     class Server
     {
+        #region
         //////////////////////////////////////////Class Attributes///////////////////////////////////////////////////////////////
 
         /// <summary>
@@ -33,7 +34,9 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// Attribut reinitialized in Server.receive.
         /// </summary>
         private static TcpListener tcpListener;
+        #endregion
 
+        #region
         ////////////////////////////////////////Class Methods///////////////////////////////////////////////////////////////////
 
         /// <summary>
@@ -111,5 +114,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             tcpListenerThread.Start();
         }
         /*--------------------------------------------------------------------*/
+        #endregion
     }
 }

@@ -11,11 +11,28 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
     /// </summary>
     class StatusText
     {
+        #region
+        ///////////////////////////////////////Class Attribute///////////////////////////////////////////////
+
         /// <summary>
         /// Used by the parseCommand method in Program class. Splits the command string into the input and path.
         /// Input Values: upload, upgrade, delete, quit.
         /// </summary>
         private static String commandInput;
+
+        /// <summary>
+        /// Contains the path of whatever will be modified in any way in the home folder of thre program.
+        /// </summary>
+        private static String pathInput;
+
+        /// <summary>
+        /// Input values for the command to be executed.
+        /// </summary>
+        private static String[] commandInputValueArray = { "upload", "update", "delete", "open", "quit", "exit", "help", "?", "create" };
+        #endregion
+
+        #region
+        //////////////////////////////////////Class Methods/////////////////////////////////////////////////
 
         /// <summary>
         /// Getter for the commandInput attribute.
@@ -25,6 +42,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return commandInput;
         }
+        /*-------------------------------------*/
 
         /// <summary>
         /// Setter that sets a new value to commandInput attribute.
@@ -34,11 +52,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             commandInput = consoleCommandInput.ToLower();
         }
-
-        /// <summary>
-        /// Contains the path of whatever will be modified in any way in the home folder of thre program.
-        /// </summary>
-        private static String pathInput;
+        /*-------------------------------------------------------------------------------------------*/
 
         /// <summary>
         /// Getter for the pathInput attribute.
@@ -48,6 +62,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return pathInput;
         }
+        /*--------------------------------------------------------------------------------------------*/
 
         /// <summary>
         /// Setter that sets a new value to pathInput attribute.
@@ -57,11 +72,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             pathInput = consolePathInput.ToLower();
         }
-
-        /// <summary>
-        /// Input values for the command to be executed.
-        /// </summary>
-        private static String[] commandInputValueArray = {"upload", "update", "delete", "open", "quit", "exit", "help", "?", "create"};
+        /*---------------------------------------------------------------------------------------------*/
 
         /// <summary>
         /// Getter to get the length of the commandInputVlueArray
@@ -71,6 +82,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return commandInputValueArray.Length;
         }
+        /*-------------------------------------------------------*/
 
         /// <summary>
         /// Getter accessing the commandInputValueArray.
@@ -81,6 +93,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return commandInputValueArray[arrayIndex];
         }
+        /*---------------------------------------------------------------*/
         
         /// <summary>
         /// Shows the welcome message and welcome text when the program starts.
@@ -103,6 +116,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 }
             }
         }
-
+        /*------------------------------------------------------------------------------*/
+        #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
     /// </summary>
     class NetworkConfig
     {
+        #region
         //////////////////////////////////////Class Attributes/////////////////////////////////////////////////
 
         /// <summary>
@@ -42,8 +43,13 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static Int64 bufferSize = 32768;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Thread listen;
+        #endregion
 
+        #region
         /////////////////////////////////Class methods///////////////////////////////////////////////////////
 
         /// <summary>
@@ -130,5 +136,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             }
         }
         /*--------------------------------------------------------------------------------------*/
+        #endregion
     }
 }

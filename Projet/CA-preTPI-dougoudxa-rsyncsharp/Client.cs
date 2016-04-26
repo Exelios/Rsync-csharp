@@ -17,6 +17,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
     /// </summary>
     class Client
     {
+        #region 
         ///////////////////////////Class Methods///////////////////////////////////////////
 
         /// <summary>
@@ -110,11 +111,13 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*-------------------------------------------------------------------------------*/
 
         /// <summary>
+        /// INCOMPLETE !
         /// Updates the current contents of the specified directory for users connected on the network.
         /// </summary>
         /// <param name="path">Directory needed to be updated</param>
         public static void update(String path)
         {
+
             //For debugging purposes, method not yet defined
             Console.WriteLine("Update function not yet available.");
         }
@@ -302,5 +305,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             StatusText.setPathInput("");
         }
         /*-------------------------------------------------------------------------------*/
+        #endregion
     }
 }

@@ -10,10 +10,17 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 {
     class Program
     {
+        #region
+        //////////////////////////////////////////////Class Attributes/////////////////////////////////////////////////////
+
         /// <summary>
         /// Attribute insuring correct application closing sequence.
         /// </summary>
         private static bool EXIT_STATUS = false;
+        #endregion
+
+        #region
+        //////////////////////////////////////////////Class Methods///////////////////////////////////////////////////////
 
         /// <summary>
         /// Getter to access EXIT_STATUS attribute outsidde Program class.
@@ -23,6 +30,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             return EXIT_STATUS;
         }
+        /*--------------------------------------------------------------*/
 
         /// <summary>
         /// Method used by the quit method in the Client class.
@@ -61,7 +69,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             return Console.ReadLine();
         }
         /*--------------------------------------------------------------------------------------*/
-        
+        #endregion
 
         /// <summary>
         /// Core of the program, automatically executed
