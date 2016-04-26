@@ -21,14 +21,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
     /// </summary>
     class Client
     {
-        ////////////////////////Class Attributes///////////////////////////////////////////
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static String fileName;
-
-
         ///////////////////////////Class Methods///////////////////////////////////////////
 
         /// <summary>
@@ -58,6 +50,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="fullFilePath">Path of the file that will be sent</param>
         public static void send(IPAddress destinationIP, String fullFilePath)
         {
+            NetworkConfig.tcpClient = new TcpClient();
             NetworkConfig.tcpClient.Connect(new IPEndPoint(destinationIP, 4400));
             NetworkStream networkStreamClient = NetworkConfig.tcpClient.GetStream();
 
@@ -93,12 +86,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
             fileTransferClient = (FileTransfer)binaryFormatterClient.Deserialize(networkStreamClient);
 
-            //Neat way to have a conditional output.
-            //Console.WriteLine((fileTransferClient.hash == fileHash) ? "File correctly recieved" : "Error during transfer");
-
             //Close ALL objects
             fileStreamClient.Close();
             networkStreamClient.Close();
+
+            NetworkConfig.tcpClient.Close();
+            NetworkConfig.tcpClient = null;
         }
         /*------------------------------------------------------------------------------*/
 
@@ -108,9 +101,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Upload target</param>
         public static void upload(String path)
         {
-            send(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
-            //For debugging purposes, method not yet defined
-            Console.WriteLine("Upload function not yet available.");
+            if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+            {
+                send(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
+                Console.WriteLine("\nDone");
+            }
+            else
+            {
+                Console.WriteLine("\nNo such file or directory");
+            }
         }
         /*-------------------------------------------------------------------------------*/
 
@@ -181,6 +180,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         public static void quit()
         {
             Program.setExitStatus(true);
+
+            Environment.Exit(0);
         }
         /*-------------------------------------------------------------------------------*/
 
@@ -247,12 +248,18 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             int commandIndex = 0;
 
             //Compares the command input to the list of possible commands.
-            for(int i = 0; i < StatusText.getcommandInputValueArrayLength(); ++i)
+            for(int i = 0; i < StatusText.getcommandInputValueArrayLength() + 1; ++i)
             {
-                if(StatusText.getCommandValue(i) == StatusText.getCommandInput())
+                //A correcte instruction was entered
+                if(i < StatusText.getcommandInputValueArrayLength() && StatusText.getCommandValue(i) == StatusText.getCommandInput())
                 {
                     commandIndex = i;
                     break;
+                }
+                //A non existing instruction was entered
+                else
+                {
+                    commandIndex = i;
                 }
             }
             //End of for
@@ -283,12 +290,14 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
                 case 6:
                 case 7:
+                case 9:
                     showHelpScreen();
                     break;
 
                 case 8:
                     create(StatusText.getPathInput());
                     break;
+
             }
             //End of switch
 

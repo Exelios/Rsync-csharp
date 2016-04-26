@@ -37,15 +37,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// TCP client used for connections and file transfers.
         /// </summary>
-        public static TcpClient tcpClient = new TcpClient();
-
+        public static TcpClient tcpClient; 
 
         /// <summary>
         /// 
         /// </summary>
         public static Int64 bufferSize = 32768;
-
-        //public static UdpClient udpServer = new UdpClient(4000);
 
         public static Thread listen;
 

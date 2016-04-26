@@ -19,6 +19,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         private static bool EXIT_STATUS = false;
 
         /// <summary>
+        /// Getter to access EXIT_STATUS attribute outsidde Program class.
+        /// </summary>
+        /// <returns>Boolean value</returns>
+        public static bool getExitStatus()
+        {
+            return EXIT_STATUS;
+        }
+
+        /// <summary>
         /// Method used by the quit method in the Client class.
         /// </summary>
         /// <param name="newStatus">Set as true</param>
@@ -63,7 +72,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Server.startTCPlistener();
+            Thread thread = new Thread(Server.startTCPlisteners);
+            thread.Start();
 
             StatusText.showWelcomeMessage();
 
@@ -72,16 +82,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 parseCommand(typeInRequest());
 
-                //Test debug
-                //Console.WriteLine("For debugging purposes\nThe command parsed: " + StatusText.getCommandInput() + "\nThe path parsed: " + StatusText.getPathInput());
-                //Client.showIPs();
-
                 Client.executeRequest();
-
-                Server.restartTCPlistener();
             }
-
-            //Closing instructions
         }
         //End of Main()
     }

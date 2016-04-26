@@ -28,7 +28,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static string DEFAULT_DIRECTORY_PATH = "C:\\Users\\" + Environment.UserName + "\\Rsync#\\";
 
-        private static Thread tcpListener;
+        /// <summary>
+        /// Thread executing the Server.receive methode.
+        /// </summary>
+        private static Thread tcpListenerThread;
+        
+        /// <summary>
+        /// Attribut reinitialized in Server.receive.
+        /// </summary>
+        private static TcpListener tcpListener;
 
         ////////////////////////////////////////Class Methods///////////////////////////////////////////////////////////////////
 
@@ -45,65 +53,67 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /*--------------------------------------------------------------------------------------*/
 
         /// <summary>
-        /// 
+        /// Method that listens port 4400 for incoming transmissions. Repeats itself !
         /// </summary>
         public static void receive()
         {
-            TcpListener tcpListener = new TcpListener(new IPEndPoint(IPAddress.Any, 4400));
-            tcpListener.Start();
-            NetworkConfig.tcpClient = tcpListener.AcceptTcpClient();
-            tcpListener.Stop();
-            NetworkStream networkStreamServer = NetworkConfig.tcpClient.GetStream();
-
-
-            //Receive File infos
-            BinaryFormatter binaryFormatterServer = new BinaryFormatter();
-            FileTransfer fileTransferServer = (FileTransfer)binaryFormatterServer.Deserialize(networkStreamServer);
-
-            Console.WriteLine(fileTransferServer.name + " - " + fileTransferServer.size);
-            Int64 fileSize = fileTransferServer.size;
-            String fullFilePath = fileTransferServer.name;
-            String fileHash = fileTransferServer.hash;
-
-            //ok, receive/write the file
-            //By default if the directory in which should be contained doesn't exist then it will go into the Home Folder.
-            String[] directoryList = fullFilePath.Split('\\');
-
-            FileStream fileStreamServer = new FileStream(DEFAULT_DIRECTORY_PATH + directoryList[directoryList.Length - 1], FileMode.Create);
-            Int64 bytesReceived = 0;
-            
-            while (bytesReceived < fileSize)
+            while (!Program.getExitStatus())
             {
-                Byte[] bufferArray = (Byte[])binaryFormatterServer.Deserialize(networkStreamServer);
-                NetworkConfig.bufferSize = bufferArray.Length;
-                fileStreamServer.Write(bufferArray, 0, (int)NetworkConfig.bufferSize);
-                bytesReceived += NetworkConfig.bufferSize;
+                tcpListener = new TcpListener(new IPEndPoint(IPAddress.Any, 4400));
+                tcpListener.Start();
+                NetworkConfig.tcpClient = tcpListener.AcceptTcpClient();
+                tcpListener.Stop();
+                NetworkStream networkStreamServer = NetworkConfig.tcpClient.GetStream();
 
-                //Add a progress bar here.
+
+                //Receive File infos
+                BinaryFormatter binaryFormatterServer = new BinaryFormatter();
+                FileTransfer fileTransferServer = (FileTransfer)binaryFormatterServer.Deserialize(networkStreamServer);
+
+                //Writes on the reveiving screen what was received
+                Console.Write(fileTransferServer.name + " - " + fileTransferServer.size + " o\n\nRsync#> ");
+
+                Int64 fileSize = fileTransferServer.size;
+                String fullFilePath = fileTransferServer.name;
+                String fileHash = fileTransferServer.hash;
+
+                //ok, receive/write the file
+                //By default if the directory in which should be contained doesn't exist then it will go into the Home Folder.
+                String[] directoryList = fullFilePath.Split('\\');
+
+                //Only takes the last part of the path which is the file name.
+                FileStream fileStreamServer = new FileStream(DEFAULT_DIRECTORY_PATH + directoryList[directoryList.Length - 1], FileMode.Create);
+                Int64 bytesReceived = 0;
+
+                while (bytesReceived < fileSize)
+                {
+                    Byte[] bufferArray = (Byte[])binaryFormatterServer.Deserialize(networkStreamServer);
+                    NetworkConfig.bufferSize = bufferArray.Length;
+                    fileStreamServer.Write(bufferArray, 0, (int)NetworkConfig.bufferSize);
+                    bytesReceived += NetworkConfig.bufferSize;
+
+                    //Add a progress bar here.
+                }
+
+                binaryFormatterServer.Serialize(networkStreamServer, new FileTransfer("", 0, fileHash));
+
+                //Close ALL objects
+                fileStreamServer.Close();
+                networkStreamServer.Close();
+
+                tcpListener = null;
             }
-
-            //Console.WriteLine((fileTransferServer.hash == fileHash) ? "File correctly recieved" : "Error during transfer");
-
-            binaryFormatterServer.Serialize(networkStreamServer, new FileTransfer("", 0, fileHash));
-
-            //Close ALL objects
-            fileStreamServer.Close();
-            networkStreamServer.Close();
         }
+        /*----------------------------------------------------------------------------------------------*/
 
-
-        public static void startTCPlistener()
+        /// <summary>
+        /// Start listening thread in Program.Main()
+        /// </summary>
+        public static void startTCPlisteners()
         {
-            tcpListener = new Thread(receive);
-
-            tcpListener.Start();
+            tcpListenerThread = new Thread(receive);
+            tcpListenerThread.Start();
         }
-
-        public static void restartTCPlistener()
-        {
-            tcpListener.Abort();
-
-            tcpListener.Start();
-        }
+        /*--------------------------------------------------------------------*/
     }
 }
