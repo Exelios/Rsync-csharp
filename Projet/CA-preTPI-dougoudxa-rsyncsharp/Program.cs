@@ -23,7 +23,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         //////////////////////////////////////////////Class Methods///////////////////////////////////////////////////////
 
         /// <summary>
-        /// Getter to access EXIT_STATUS attribute outsidde Program class.
+        /// Getter to access EXIT_STATUS attribute outside Program class.
         /// </summary>
         /// <returns>Boolean value</returns>
         public static bool getExitStatus()
