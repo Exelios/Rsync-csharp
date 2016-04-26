@@ -5,13 +5,9 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
