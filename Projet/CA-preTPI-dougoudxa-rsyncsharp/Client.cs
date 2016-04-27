@@ -25,8 +25,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// Source: http://codes-sources.commentcamarche.net/source/53449-transfert-de-fichier
         /// </summary>
         /// <param name="fileName">String containing the Windows path to the file you want to send</param>
-        /// <returns></returns>
-        static String hashingFile(String fileName)
+        /// <returns>The file's hashprint</returns>
+        public static String hashingFile(String fileName)
         {
             SHA1CryptoServiceProvider shaHash1 = new SHA1CryptoServiceProvider();
             byte[] bufferArray;

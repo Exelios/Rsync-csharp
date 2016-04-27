@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
@@ -64,17 +65,14 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 tcpListener.Stop();
                 NetworkStream networkStreamServer = NetworkConfig.tcpClient.GetStream();
 
-
                 //Receive File infos
                 BinaryFormatter binaryFormatterServer = new BinaryFormatter();
                 FileTransfer fileTransferServer = (FileTransfer)binaryFormatterServer.Deserialize(networkStreamServer);
 
-                //Writes on the reveiving screen what was received
-                Console.Write(fileTransferServer.name + " - " + fileTransferServer.size + " o\n\nRsync#> ");
-
                 Int64 fileSize = fileTransferServer.size;
                 String fullFilePath = fileTransferServer.name;
                 String fileHash = fileTransferServer.hash;
+                String computedHash;
 
                 //ok, receive/write the file
                 //By default if the directory in which should be contained doesn't exist then it will go into the Home Folder.
@@ -101,6 +99,20 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 networkStreamServer.Close();
 
                 tcpListener = null;
+
+                //Comparison between received hash and calculated hash from received file.
+                computedHash = Client.hashingFile(DEFAULT_DIRECTORY_PATH + directoryList[directoryList.Length - 1]);
+
+                if (computedHash != fileHash)
+                {
+                    //Writes on the reveiving screen what was received when hashes mismatch.
+                    Console.Write(fileTransferServer.name + " - " + fileTransferServer.size / 1000 + " ko\nWARNING: Hash Mismatch !\n\nRsync#> ");
+                }
+                else
+                {
+                    //Writes on the reveiving screen what was received when hashes are equal.
+                    Console.Write(fileTransferServer.name + " - " + fileTransferServer.size / 1000 + " ko\n\nRsync#> ");
+                }
             }
         }
         /*----------------------------------------------------------------------------------------------*/

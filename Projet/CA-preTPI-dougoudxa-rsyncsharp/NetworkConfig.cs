@@ -127,10 +127,10 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
             while(arrayIndex < networkAddressesArray.Length)
             {
-                ++arrayIndex;
-                if(networkAddressesArray[arrayIndex] == null)
+                //++arrayIndex;
+                if(networkAddressesArray[arrayIndex++] == null)
                 {
-                    networkAddressesArray[arrayIndex] = ip;
+                    networkAddressesArray[arrayIndex-1] = ip;
                     break;
                 }
             }

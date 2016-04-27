@@ -49,7 +49,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         private static void parseCommand(String consoleInput)
         {
             string[] inputArray = consoleInput.Split(' ');
-
             StatusText.setCommandInput(inputArray[0]);
 
             if (inputArray.Length > 1)
