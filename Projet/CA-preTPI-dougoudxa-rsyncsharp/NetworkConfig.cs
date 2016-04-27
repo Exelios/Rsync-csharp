@@ -79,15 +79,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             IPEndPoint broadcastIP = new IPEndPoint(IPAddress.Broadcast, 4000);
 
-            //source http://stackoverflow.com/questions/6803073/get-local-ip-address /////
-            String strHostName = string.Empty;                                          //
-            // Getting Ip address of local machine...                                   //
-            // First get the host name of local machine.                                //
-            strHostName = Dns.GetHostName();                                            //    
-            // Then using host name, get the IP address list..                          //
-            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);                        //
-            IPAddress[] myAddress = ipEntry.AddressList;                                //
-            /*--------------------------------------------------------------------------*/    
+            //source http://stackoverflow.com/questions/6803073/get-local-ip-address //
+            String hostName = string.Empty;                                          //
+            // Getting Ip address of local machine...                                //
+            // First get the host name of local machine.                             //
+            hostName = Dns.GetHostName();                                            //    
+            // Then using host name, get the IP address list..                       //
+            IPHostEntry ipEntry = Dns.GetHostEntry(hostName);                        //
+            IPAddress[] myAddress = ipEntry.AddressList;                             //
+            /*************************************************************************/    
 
             byte[] messageArray = Encoding.ASCII.GetBytes(myAddress[0].ToString());
 
@@ -123,14 +123,11 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void getNetworkAddresses(IPAddress ip)
         {
-            int arrayIndex = 0;
-
-            while(arrayIndex < networkAddressesArray.Length)
+            for(int arrayIndex = 0; arrayIndex < networkAddressesArray.Length; ++arrayIndex)
             {
-                //++arrayIndex;
-                if(networkAddressesArray[arrayIndex++] == null)
+                if(networkAddressesArray[arrayIndex] == null)
                 {
-                    networkAddressesArray[arrayIndex-1] = ip;
+                    networkAddressesArray[arrayIndex] = ip;
                     break;
                 }
             }

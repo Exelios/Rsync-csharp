@@ -45,7 +45,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         /// <param name="destinationIP">IP address to which the data will be sent</param>
         /// <param name="fullFilePath">Path of the file that will be sent</param>
-        public static void send(IPAddress destinationIP, String fullFilePath)
+        public static void sendFile(IPAddress destinationIP, String fullFilePath)
         {
             NetworkConfig.tcpClient = new TcpClient();
             NetworkConfig.tcpClient.Connect(new IPEndPoint(destinationIP, 4400));
@@ -64,22 +64,22 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             FileStream fileStreamClient = new FileStream(fullFilePath, FileMode.Open);
             Int64 bytesTransferred = 0;
 
-                //Loop that shows the transfer in progress.
-                while (bytesTransferred < fileSize)
+            //Loop that shows the transfer in progress.
+            while (bytesTransferred < fileSize)
+            {
+                if (fileSize - bytesTransferred < NetworkConfig.bufferSize)
                 {
-                    if (fileSize - bytesTransferred < NetworkConfig.bufferSize)
-                    {
                     NetworkConfig.bufferSize = fileSize - bytesTransferred;
-                    }
-
-                    Byte[] buffer = new Byte[NetworkConfig.bufferSize];
-                    fileStreamClient.Read(buffer, 0, (int)NetworkConfig.bufferSize);
-                    binaryFormatterClient.Serialize(networkStreamClient, buffer);
-
-                    bytesTransferred += NetworkConfig.bufferSize;
-
-                    //It would be great to implement a progress bar here.
                 }
+
+                Byte[] buffer = new Byte[NetworkConfig.bufferSize];
+                fileStreamClient.Read(buffer, 0, (int)NetworkConfig.bufferSize);
+                binaryFormatterClient.Serialize(networkStreamClient, buffer);
+
+                bytesTransferred += NetworkConfig.bufferSize;
+
+                //It would be great to implement a progress bar here.
+            }
 
             fileTransferClient = (FileTransfer)binaryFormatterClient.Deserialize(networkStreamClient);
 
@@ -100,7 +100,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
             {
-                send(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
+                sendFile(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
                 Console.WriteLine("\nDone");
             }
             else
@@ -205,7 +205,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             Console.Write("When entering a file path, you must specify the file extension : .txt .jpg .pdf etc.\n");
         }
         /*------------------------------------------------------------------------------*/
-        
+
         /// <summary>
         /// Creates the specified directory if it doesn't already exist.
         /// </summary>
@@ -247,10 +247,10 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             int commandIndex = 0;
 
             //Compares the command input to the list of possible commands.
-            for(int i = 0; i < StatusText.getcommandInputValueArrayLength() + 1; ++i)
+            for (int i = 0; i < StatusText.getcommandInputValueArrayLength() + 1; ++i)
             {
                 //A correcte instruction was entered
-                if(i < StatusText.getcommandInputValueArrayLength() && StatusText.getCommandValue(i) == StatusText.getCommandInput())
+                if (i < StatusText.getcommandInputValueArrayLength() && StatusText.getCommandValue(i) == StatusText.getCommandInput())
                 {
                     commandIndex = i;
                     break;
