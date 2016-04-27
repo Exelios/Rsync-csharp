@@ -105,12 +105,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
                 if (computedHash != fileHash)
                 {
-                    //Writes on the reveiving screen what was received when hashes mismatch.
+                    //Writes on the receiving screen what was received when hashes mismatch.
                     Console.Write(fileTransferServer.name + " - " + fileTransferServer.size / 1000 + " ko\nWARNING: Hash Mismatch !\n\nRsync#> ");
                 }
                 else
                 {
-                    //Writes on the reveiving screen what was received when hashes are equal.
+                    //Writes on the receiving screen what was received when hashes are equal.
                     Console.Write(fileTransferServer.name + " - " + fileTransferServer.size / 1000 + " ko\n\nRsync#> ");
                 }
             }
