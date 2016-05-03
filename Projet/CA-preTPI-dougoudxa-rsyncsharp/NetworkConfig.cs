@@ -156,7 +156,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 for (int i = 0; i < ipAddressListSize; ++i)
                 {
-                    if (newIp != ipAddressList[i])
+                    if (newIp != ipAddressList[i] || ipAddressListSize == 0)
                     {
                         ipAddressList.Add(newIp);
                         ++ipAddressListSize;
