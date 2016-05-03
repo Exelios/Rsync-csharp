@@ -98,14 +98,21 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Upload target</param>
         public static void upload(String path)
         {
-            if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+            foreach (IPAddress ipAdd in NetworkConfig.networkAddressesArray)
             {
-                sendFile(IPAddress.Parse("172.20.10.2"), Server.DEFAULT_DIRECTORY_PATH + path);
-                Console.WriteLine("\nDone");
-            }
-            else
-            {
-                Console.WriteLine("\nNo such file or directory");
+                if (ipAdd != null)
+                {
+                    if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
+                    {
+                        //Cannot yet send to a 
+                        sendFile(ipAdd, Server.DEFAULT_DIRECTORY_PATH + path);
+                        Console.WriteLine("\nDone");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nNo such file or directory");
+                    }
+                }
             }
         }
         /*-------------------------------------------------------------------------------*/
@@ -178,7 +185,11 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void quit()
         {
+            Console.WriteLine("Exitting program... ");
+
             Program.setExitStatus(true);
+
+            NetworkConfig.stopUDPServer();
 
             Environment.Exit(0);
         }
@@ -228,14 +239,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void showIPs()
         {
-            int arrayIndex = -1;
+            Console.WriteLine("Your IP Address: " + NetworkConfig.myIPAddress.ToString());
 
-            do
+            foreach (IPAddress ipAdd in NetworkConfig.networkAddressesArray)
             {
-                ++arrayIndex;
-
-                Console.WriteLine(NetworkConfig.networkAddressesArray[arrayIndex]);
-            } while (NetworkConfig.networkAddressesArray[arrayIndex] != null);
+                Console.WriteLine(ipAdd);
+            }
         }
         /*---------------------------------------------------------------------------*/
 
@@ -289,12 +298,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
                 case 6:
                 case 7:
-                case 9:
                     showHelpScreen();
                     break;
 
                 case 8:
                     create(StatusText.getPathInput());
+                    break;
+
+                case 9:
+                    showIPs();
                     break;
 
             }

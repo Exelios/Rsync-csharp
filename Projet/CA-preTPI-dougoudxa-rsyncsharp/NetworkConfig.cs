@@ -21,12 +21,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Array of all the IP addresses on the current network, Used for the TCP connections for the file transfert.
         /// </summary>
-        public static IPAddress[] networkAddressesArray = new IPAddress[50];
+        public static IPAddress[] networkAddressesArray = new IPAddress[10];
 
         /// <summary>
-        /// Variable storing temporarly an IP address.
+        /// 
         /// </summary>
-        private static IPAddress tempIPAdress;
+        public static IPAddress myIPAddress;
 
         /// <summary>
         /// UDP client on the receiving end of the program for broadcast purposes.
@@ -47,6 +47,11 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// 
         /// </summary>
         public static Thread listen;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Thread send;
         #endregion
 
         #region
@@ -57,17 +62,22 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void startUDPServer()
         {
-            listen = new Thread(new ThreadStart(StartListening));
+            send = new Thread(broadcastMyIPAddress);
+
+            send.Start();
+
+            listen = new Thread(StartListening);
 
             listen.Start();
         }
         /*------------------------------------------------------------------------*/
 
         /// <summary>
-        /// Stops the UDP server when apllication closes.
+        /// Stops the UDP server when application closes.
         /// </summary>
         public static void stopUDPServer()
         {
+            send.Join();
             listen.Join();
         }
         /*----------------------------------------------------------------------*/
@@ -87,11 +97,22 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             // Then using host name, get the IP address list..                       //
             IPHostEntry ipEntry = Dns.GetHostEntry(hostName);                        //
             IPAddress[] myAddress = ipEntry.AddressList;                             //
-            /*************************************************************************/    
+            /*************************************************************************/
 
-            byte[] messageArray = Encoding.ASCII.GetBytes(myAddress[0].ToString());
+            //For only ipv4 addresses
+            //http://stackoverflow.com/questions/1059526/get-ipv4-addresses-from-dns-gethostentry
+            IPAddress[] ipv4Addresses = Array.FindAll(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
 
-            udpClient.Send(messageArray, messageArray.Length, broadcastIP);
+            myIPAddress = ipv4Addresses[0];
+
+            byte[] messageArray = Encoding.ASCII.GetBytes(myIPAddress.ToString());
+
+            while (!Program.getExitStatus())
+            {
+                udpClient.Send(messageArray, messageArray.Length, broadcastIP);
+
+                Thread.Sleep(5000);
+            }
         }
         /*------------------------------------------------------------------------------*/
 
@@ -112,8 +133,11 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             IPEndPoint incomingIP = new IPEndPoint(IPAddress.Any, 4000);
             byte[] incomingData = udpClient.EndReceive(result, ref incomingIP);
-            tempIPAdress = IPAddress.Parse(Encoding.ASCII.GetString(incomingData));
+            IPAddress tempIPAdress = IPAddress.Parse(Encoding.ASCII.GetString(incomingData));
+            
+            if(tempIPAdress != myIPAddress)
             getNetworkAddresses(tempIPAdress);
+                      
             StartListening();
         }
         /*-----------------------------------------------------*/
@@ -121,13 +145,18 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Method collecting and storing all IP addresses sent by the program from other machines
         /// </summary>
-        public static void getNetworkAddresses(IPAddress ip)
+        private static void getNetworkAddresses(IPAddress newIp)
         {
-            for(int arrayIndex = 0; arrayIndex < networkAddressesArray.Length; ++arrayIndex)
+            for(int index = 0; index < networkAddressesArray.Length; ++index)
             {
-                if(networkAddressesArray[arrayIndex] == null)
+                if(newIp == networkAddressesArray[index])
                 {
-                    networkAddressesArray[arrayIndex] = ip;
+                    
+                    break;
+                }
+                else
+                {
+                    networkAddressesArray[index] = newIp;
                     break;
                 }
             }

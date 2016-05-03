@@ -28,7 +28,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Input values for the command to be executed.
         /// </summary>
-        private static String[] commandInputValueArray = { "upload", "update", "delete", "open", "quit", "exit", "help", "?", "create" };
+        private static String[] commandInputValueArray = { "upload", "update", "delete", "open", "quit", "exit", "help", "?", "create", "ip" };
         #endregion
 
         #region

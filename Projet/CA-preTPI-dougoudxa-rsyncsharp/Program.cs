@@ -76,6 +76,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            NetworkConfig.startUDPServer();
+
             Thread thread = new Thread(Server.startTCPlisteners);
             thread.Start();
 
