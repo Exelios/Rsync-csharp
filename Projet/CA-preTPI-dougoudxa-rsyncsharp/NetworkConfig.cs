@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
@@ -21,7 +22,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <summary>
         /// Array of all the IP addresses on the current network, Used for the TCP connections for the file transfert.
         /// </summary>
-        public static IPAddress[] networkAddressesArray = new IPAddress[10];
+        public static List<IPAddress> ipAddressList = new List<IPAddress>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int ipAddressListSize = 0;
 
         /// <summary>
         /// 
@@ -135,7 +141,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             byte[] incomingData = udpClient.EndReceive(result, ref incomingIP);
             IPAddress tempIPAdress = IPAddress.Parse(Encoding.ASCII.GetString(incomingData));
             
-            if(tempIPAdress != myIPAddress)
             getNetworkAddresses(tempIPAdress);
                       
             StartListening();
@@ -147,17 +152,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         private static void getNetworkAddresses(IPAddress newIp)
         {
-            for(int index = 0; index < networkAddressesArray.Length; ++index)
+            if (newIp != myIPAddress)
             {
-                if(newIp == networkAddressesArray[index])
+                for (int i = 0; i < ipAddressListSize; ++i)
                 {
-                    
-                    break;
-                }
-                else
-                {
-                    networkAddressesArray[index] = newIp;
-                    break;
+                    if (newIp != ipAddressList[i])
+                    {
+                        ipAddressList.Add(newIp);
+                        ++ipAddressListSize;
+                    }
                 }
             }
         }

@@ -98,7 +98,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Upload target</param>
         public static void upload(String path)
         {
-            foreach (IPAddress ipAdd in NetworkConfig.networkAddressesArray)
+            foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
             {
                 if (ipAdd != null)
                 {
@@ -212,7 +212,8 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             Console.Write("Delete \"path\" > deletes the specified file or directory on local machine. Directory is recursively deleted.\n");
             Console.Write("Open \"path\"   > opens the specified directory. If no path is specified then the Rsync# home folder is opened.\n");
             Console.Write("Exit and Quit > close the program.\n");
-            Console.Write("Help and ?    > show the help screen.\n\n");
+            Console.Write("Help and ?    > show the help screen.\n");
+            Console.Write("IP            > shows all the IPv4 addresses this machine can sync with.\n\n");
             Console.Write("When entering a file path, you must specify the file extension : .txt .jpg .pdf etc.\n");
         }
         /*------------------------------------------------------------------------------*/
@@ -241,7 +242,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             Console.WriteLine("Your IP Address: " + NetworkConfig.myIPAddress.ToString());
 
-            foreach (IPAddress ipAdd in NetworkConfig.networkAddressesArray)
+            foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
             {
                 Console.WriteLine(ipAdd);
             }
