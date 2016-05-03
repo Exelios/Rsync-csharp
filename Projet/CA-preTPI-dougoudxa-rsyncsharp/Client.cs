@@ -5,6 +5,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
@@ -106,7 +107,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
                 {
                     sendFile(ipAdd, Server.DEFAULT_DIRECTORY_PATH + path);
-
+                    
                     //For debugging purposes.
                     //Console.WriteLine("Sent to " + ipAdd.ToString());
                 }

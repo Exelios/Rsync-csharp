@@ -112,7 +112,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 udpClient.Send(messageArray, messageArray.Length, broadcastIP);
 
-                Thread.Sleep(50);
+                Thread.Sleep(20);
             }
         }
         /*------------------------------------------------------------------------------*/
@@ -174,6 +174,15 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             //I don't have this IP yet, I need it.
             if (isNewIP)
             ipAddressList.Add(newIp);
+        }
+        /*--------------------------------------------------------------------------------------*/
+
+        /// <summary>
+        /// Removes all entries from the ip list in order to refresh them in case a host got disconnected.
+        /// </summary>
+        public static void refreshIPList()
+        {
+            ipAddressList.Clear();
         }
         /*--------------------------------------------------------------------------------------*/
         #endregion

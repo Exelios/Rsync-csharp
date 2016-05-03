@@ -87,6 +87,12 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 parseCommand(typeInRequest());
 
+                //Erases the IP list in order to avoid disconnected guests.
+                NetworkConfig.refreshIPList();
+
+                //Pause in order for all other hosts to have time to send their IP again.
+                Thread.Sleep(50);
+
                 Client.executeRequest();
             }
         }
