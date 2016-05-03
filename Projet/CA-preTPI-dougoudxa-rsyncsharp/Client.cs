@@ -9,6 +9,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CA_preTPI_dougoudxa_rsyncsharp
 {
@@ -98,21 +99,23 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// <param name="path">Upload target</param>
         public static void upload(String path)
         {
-            foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
+            //The file must existe if we want to send it.
+            if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
             {
-                if (ipAdd != null)
+                //We want to send this file to everyone
+                foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
                 {
-                    if (File.Exists(Server.DEFAULT_DIRECTORY_PATH + path))
-                    {
-                        //Cannot yet send to a 
-                        sendFile(ipAdd, Server.DEFAULT_DIRECTORY_PATH + path);
-                        Console.WriteLine("\nDone");
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nNo such file or directory");
-                    }
+                    sendFile(ipAdd, Server.DEFAULT_DIRECTORY_PATH + path);
+
+                    //For debugging purposes.
+                    //Console.WriteLine("Sent to " + ipAdd.ToString());
                 }
+                //File has been sent to everyone.
+                Console.WriteLine("Done");
+            }
+            else
+            {
+                Console.WriteLine("\nNo such file or directory");
             }
         }
         /*-------------------------------------------------------------------------------*/
@@ -185,10 +188,11 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void quit()
         {
-            Console.WriteLine("Exitting program... ");
+            Console.WriteLine("Exiting program... ");
 
             Program.setExitStatus(true);
 
+            //Stops the 2 udp threads.
             NetworkConfig.stopUDPServer();
 
             Environment.Exit(0);
@@ -200,7 +204,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void showHelpScreen()
         {
-            Console.Write("\nNeed some help ?\n");
+            Console.Write("\nNeed some help ?\n\n");
 
             Console.Write("Here are the basics: \n");
             Console.Write("This is the standard request syntaxe : Rsync#> \"REQUEST\" \"PATH\"\n");
@@ -240,11 +244,13 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void showIPs()
         {
+            List<IPAddress> tempIPList = NetworkConfig.ipAddressList;
+
             Console.WriteLine("Your IP Address: " + NetworkConfig.myIPAddress.ToString());
 
-            foreach (IPAddress ipAdd in NetworkConfig.ipAddressList)
+            foreach (IPAddress ipAdd in tempIPList)
             {
-                Console.WriteLine(ipAdd);
+                Console.WriteLine("Remote host    : " + ipAdd);
             }
         }
         /*---------------------------------------------------------------------------*/
@@ -299,6 +305,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
                 case 6:
                 case 7:
+                case 10:
                     showHelpScreen();
                     break;
 

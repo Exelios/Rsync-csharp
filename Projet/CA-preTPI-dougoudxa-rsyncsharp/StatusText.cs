@@ -104,7 +104,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 if(i == 0 || i == 2)
                 {
-                    for(int j = 0; j < 45; ++j)
+                    for(int j = 0; j < 65; ++j)
                     {
                         Console.Write("*");
                     }
@@ -112,7 +112,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
                 }
                 else
                 {
-                    Console.WriteLine("*             Welcome to RSYNC#             *");
+                    Console.WriteLine("*                       Welcome to RSYNC#                       *");
                 }
             }
         }

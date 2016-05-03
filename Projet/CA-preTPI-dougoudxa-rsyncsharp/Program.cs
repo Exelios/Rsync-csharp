@@ -83,7 +83,6 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
 
             StatusText.showWelcomeMessage();
 
-
             while (EXIT_STATUS == false)
             {
                 parseCommand(typeInRequest());

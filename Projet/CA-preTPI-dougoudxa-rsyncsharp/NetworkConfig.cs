@@ -25,12 +25,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         public static List<IPAddress> ipAddressList = new List<IPAddress>();
 
         /// <summary>
-        /// 
-        /// </summary>
-        public static int ipAddressListSize = 0;
-
-        /// <summary>
-        /// 
+        /// Local host ip address not equal to 127.0.0.1
         /// </summary>
         public static IPAddress myIPAddress;
 
@@ -45,17 +40,17 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         public static TcpClient tcpClient; 
 
         /// <summary>
-        /// 
+        /// Maximum buffer size
         /// </summary>
         public static Int64 bufferSize = 32768;
 
         /// <summary>
-        /// 
+        /// Thread that listens for incoming ip addresses
         /// </summary>
         public static Thread listen;
 
         /// <summary>
-        /// 
+        /// Thread that broadcasts ip addresses
         /// </summary>
         public static Thread send;
         #endregion
@@ -68,12 +63,17 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         public static void startUDPServer()
         {
+            //For only ipv4 addresses
+            //http://stackoverflow.com/questions/1059526/get-ipv4-addresses-from-dns-gethostentry
+            //retrieves and stores my IP address
+            IPAddress[] ipv4Addresses = Array.FindAll(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
+
+            myIPAddress = ipv4Addresses[0];
+
             send = new Thread(broadcastMyIPAddress);
-
-            send.Start();
-
             listen = new Thread(StartListening);
 
+            send.Start();
             listen.Start();
         }
         /*------------------------------------------------------------------------*/
@@ -95,21 +95,16 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         {
             IPEndPoint broadcastIP = new IPEndPoint(IPAddress.Broadcast, 4000);
 
-            //source http://stackoverflow.com/questions/6803073/get-local-ip-address //
-            String hostName = string.Empty;                                          //
-            // Getting Ip address of local machine...                                //
-            // First get the host name of local machine.                             //
-            hostName = Dns.GetHostName();                                            //    
-            // Then using host name, get the IP address list..                       //
-            IPHostEntry ipEntry = Dns.GetHostEntry(hostName);                        //
-            IPAddress[] myAddress = ipEntry.AddressList;                             //
-            /*************************************************************************/
-
-            //For only ipv4 addresses
-            //http://stackoverflow.com/questions/1059526/get-ipv4-addresses-from-dns-gethostentry
-            IPAddress[] ipv4Addresses = Array.FindAll(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
-
-            myIPAddress = ipv4Addresses[0];
+            ////source http://stackoverflow.com/questions/6803073/get-local-ip-address //
+            //String hostName = string.Empty;                                          //
+            //// Getting Ip address of local machine...                                //
+            //// First get the host name of local machine.                             //
+            //hostName = Dns.GetHostName();                                            //    
+            //// Then using host name, get the IP address list..                       //
+            //IPHostEntry ipEntry = Dns.GetHostEntry(hostName);                        //
+            //IPAddress[] myAddress = ipEntry.AddressList;                             //
+            ///*************************************************************************/
+            //This part is useless now. 
 
             byte[] messageArray = Encoding.ASCII.GetBytes(myIPAddress.ToString());
 
@@ -117,7 +112,7 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
             {
                 udpClient.Send(messageArray, messageArray.Length, broadcastIP);
 
-                Thread.Sleep(5000);
+                Thread.Sleep(50);
             }
         }
         /*------------------------------------------------------------------------------*/
@@ -152,17 +147,33 @@ namespace CA_preTPI_dougoudxa_rsyncsharp
         /// </summary>
         private static void getNetworkAddresses(IPAddress newIp)
         {
-            if (newIp != myIPAddress)
+            bool isNewIP = true;
+
+            //If I sent myself my IP I don't want it.
+            if (newIp.ToString() == myIPAddress.ToString())
             {
-                for (int i = 0; i < ipAddressListSize; ++i)
+                isNewIP = false;
+            }
+            else
+            {
+                foreach (IPAddress ip in ipAddressList)
                 {
-                    if (newIp != ipAddressList[i] || ipAddressListSize == 0)
+                    //If I already have this IP in my list I don't need it again.
+                    if (ip.ToString() == newIp.ToString())
                     {
-                        ipAddressList.Add(newIp);
-                        ++ipAddressListSize;
+                        isNewIP = false;
+                        break;
+                    }
+                    else
+                    {
+                        isNewIP = true;
                     }
                 }
             }
+
+            //I don't have this IP yet, I need it.
+            if (isNewIP)
+            ipAddressList.Add(newIp);
         }
         /*--------------------------------------------------------------------------------------*/
         #endregion
